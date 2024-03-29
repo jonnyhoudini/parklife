@@ -8,6 +8,7 @@
     "test": "jest -i"
   },
   "dependencies": {
+    "bson": "^6.5.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
     "mongodb": "^6.5.0"
