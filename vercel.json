@@ -14,7 +14,7 @@
   ],
   "headers": [
     {
-      "source": "/reports/(.*)",
+      "source": "(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
