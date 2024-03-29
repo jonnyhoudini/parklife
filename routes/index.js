@@ -42,6 +42,8 @@ r.get("/reports", async (req, res) => {
 
 // post a new record
 r.post("/reports", async (req, res) => {
+    console.log('req.body', req.body);
+    console.log('req', req);
     try {
         conn = await client.connect();
     } catch (e) {
