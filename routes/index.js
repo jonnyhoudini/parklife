@@ -74,7 +74,7 @@ r.delete("/reports/:id", async (req, res) => {
 });
 
 // get a single record
-r.get("/:id", async (req, res) => {
+r.get("/reports/:id", async (req, res) => {
     try {
         conn = await client.connect();
     } catch (e) {
