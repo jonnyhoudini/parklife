@@ -73,6 +73,21 @@ r.delete("/reports/:id", async (req, res) => {
     res.send(result).status(200);
 });
 
+// get a single record
+r.get("/:id", async (req, res) => {
+    try {
+        conn = await client.connect();
+    } catch (e) {
+        console.error(e);
+    }
+    let collection = await db.collection("records");
+    let query = { _id: new ObjectId(req.params.id) };
+    let result = await collection.findOne(query);
+
+    if (!result) res.send("Not found").status(404);
+    else res.send(result).status(200);
+});
+
 
 r.get('/', (req, res) => res.json(new SuccessResponseObject('express vercel boiler plate')));
 
