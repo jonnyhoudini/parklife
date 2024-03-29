@@ -14,7 +14,7 @@
   ],
   "headers": [
     {
-      "source": "(.*)",
+      "source": "/reports/(.*)",
       "headers": [
         {
           "key": "Access-Control-Allow-Credentials",
