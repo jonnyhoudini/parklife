@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { SuccessResponseObject } = require('../common/http');
 const demo = require('./demo.route');
 const test = require('./test.route');
+import { ObjectId } from "mongodb";
 // const reports = require('./reports.route');
 import { MongoClient } from "mongodb";
 
@@ -46,7 +47,7 @@ r.post("/reports", async (req, res) => {
     } catch (e) {
         console.error(e);
     }
-    let db = conn.db("sample_training")
+    let db = conn.db("sample_training");
     try {
         let collection = await db.collection("records");
         let results = await collection.insertOne(req.body);
@@ -54,6 +55,22 @@ r.post("/reports", async (req, res) => {
     } catch (e) {
         res.status(500).send({ message: 'error sending' });
     }
+});
+
+// delete a record
+r.delete("/reports/:id", async (req, res) => {
+    try {
+        conn = await client.connect();
+    } catch (e) {
+        console.error(e);
+    }
+    let db = conn.db("sample_training");
+    const query = { _id: new ObjectId(req.params.id) };
+
+    const collection = db.collection("records");
+    let result = await collection.deleteOne(query);
+
+    res.send(result).status(200);
 });
 
 
