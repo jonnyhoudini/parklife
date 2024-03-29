@@ -2,9 +2,10 @@ const { Router } = require('express');
 const { SuccessResponseObject } = require('../common/http');
 const demo = require('./demo.route');
 const test = require('./test.route');
-import { ObjectId } from "mongodb";
+// import { ObjectId } from "mongodb";
+const { ObjectId, MongoClient } = require("mongodb");
 // const reports = require('./reports.route');
-import { MongoClient } from "mongodb";
+// import { MongoClient } from "mongodb";
 
 const connectionString = process.env.ATLAS_URI || "";
 
