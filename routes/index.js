@@ -80,7 +80,8 @@ r.get("/reports/:id", async (req, res) => {
     } catch (e) {
         console.error(e);
     }
-    let collection = await db.collection("records");
+    let db = conn.db("sample_training");
+    let collection = db.collection("records");
     let query = { _id: new ObjectId(req.params.id) };
     let result = await collection.findOne(query);
 
