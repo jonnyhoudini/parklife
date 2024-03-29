@@ -67,9 +67,9 @@ r.post("/reports", async (req, res) => {
 
         let collection = await db.collection("records");
         let results = await collection.insertOne(newDocument);
-        // res.send(results).status(200);
+        res.send(results).status(200);
         // res.send(newDocument).status(200);
-        res.send(req).status(200);
+        // res.send(req).status(200);
     } catch (e) {
         res.status(500).send({ message: 'error sending' });
     }
