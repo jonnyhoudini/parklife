@@ -49,8 +49,22 @@ r.post("/reports", async (req, res) => {
     }
     let db = conn.db("sample_training");
     try {
+        let newDocument = {
+            name: req.body.name,
+            category: req.body.category,
+            description: req.body.description,
+            location: req.body.location,
+            email: req.body.email,
+            address: req.body.address,
+            map: req.body.map,
+            status: "open",
+            dateSubmitted: new Date(),
+            notes: "",
+            // photo: req.file ? req.file.path : null, // Save the file path as part of the record
+        };
+
         let collection = await db.collection("records");
-        let results = await collection.insertOne(req.body);
+        let results = await collection.insertOne(newDocument);
         res.send(results).status(200);
     } catch (e) {
         res.status(500).send({ message: 'error sending' });
