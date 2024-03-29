@@ -104,6 +104,6 @@ r.get("/reports/:id", async (req, res) => {
 });
 
 
-r.get('/', (req, res) => res.json(new SuccessResponseObject('express vercel boiler plate')));
+r.get('/', (req, res) => res.json(new SuccessResponseObject('this is express vercel boiler plate')));
 
 module.exports = r;
