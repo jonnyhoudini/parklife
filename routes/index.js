@@ -60,6 +60,7 @@ r.post("/reports", async (req, res) => {
             "email": req.body.email,
             "address": req.body.address,
             "map": req.body.map,
+            "housingType": req.body.housingType,
             "status": "open",
             "dateSubmitted": new Date(),
             "notes": ""
