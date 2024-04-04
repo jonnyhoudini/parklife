@@ -12,6 +12,7 @@ app.use(helmet());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://cllrmcphilemy.vercel.app'); // Update to match the domain you are making the request from
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
 });
 
