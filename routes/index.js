@@ -111,6 +111,12 @@ r.get("/reports/:id", async (req, res) => {
 
 // updates a record by id.
 r.put("/reports/:id", async (req, res) => {
+    try {
+        conn = await client.connect();
+    } catch (e) {
+        console.error(e);
+    }
+    let db = conn.db("sample_training");
     const query = { _id: new ObjectId(req.params.id) };
     const updates = {
         $set: {
