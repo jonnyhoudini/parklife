@@ -109,6 +109,30 @@ r.get("/reports/:id", async (req, res) => {
     else res.send(result).status(200);
 });
 
+// updates a record by id.
+r.put("/reports/:id", async (req, res) => {
+    const query = { _id: new ObjectId(req.params.id) };
+    const updates = {
+        $set: {
+            name: req.body.name,
+            category: req.body.category,
+            description: req.body.description,
+            location: req.body.location,
+            email: req.body.email,
+            address: req.body.address,
+            map: req.body.map,
+            status: req.body.status,
+            housingType: req.body.housingType,
+            notes: req.body.notes
+        }
+    };
+
+    let collection = await db.collection("records");
+    let result = await collection.updateOne(query, updates);
+
+    res.send(result).status(200);
+});
+
 
 r.get('/', (req, res) => res.json(new SuccessResponseObject('this is express vercel boiler plate')));
 
