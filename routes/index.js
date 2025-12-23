@@ -2,12 +2,15 @@ const { Router } = require('express');
 const { SuccessResponseObject } = require('../common/http');
 const demo = require('./demo.route');
 const test = require('./test.route');
+const reports = require('./reports.route');
 
 const r = Router();
 
 r.use('/demo', demo);
 
 r.use('/test', test);
+
+r.use('/reports', reports);
 
 r.post('/upload', (req, res) => {
     console.log('req.body', req.body);

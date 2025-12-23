@@ -10,7 +10,30 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(helmet());
 // CORS Middleware
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://cllrmcphilemy.vercel.app'); // Update to match the domain you are making the request from
+    // ALLOWED_ORIGINS can be a comma-separated list, e.g.:
+    // ALLOWED_ORIGINS=http://localhost:3000,https://cllrmcphilemy.vercel.app
+    const allowed = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,https://cllrmcphilemy.vercel.app')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+    const origin = req.headers.origin;
+
+    // In development allow the requesting origin (convenience). In production, only allow configured origins.
+    if (process.env.NODE_ENV === 'development') {
+        if (origin) res.header('Access-Control-Allow-Origin', origin);
+    } else {
+        if (origin && allowed.includes(origin)) {
+            res.header('Access-Control-Allow-Origin', origin);
+        } else {
+            // Fallback to the first allowed origin
+            res.header('Access-Control-Allow-Origin', allowed[0] || '*');
+        }
+    }
+
+    // Indicate responses can vary by Origin for correct caching behavior
+    res.header('Vary', 'Origin');
+
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     next();
