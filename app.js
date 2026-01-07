@@ -12,7 +12,8 @@ app.use(helmet());
 app.use((req, res, next) => {
     // ALLOWED_ORIGINS can be a comma-separated list, e.g.:
     // ALLOWED_ORIGINS=http://localhost:3000,https://cllrmcphilemy.vercel.app
-    const allowed = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,https://cllrmcphilemy.vercel.app')
+    // Include the React dev server default (http://localhost:3001) in allowed origins
+    const allowed = (process.env.ALLOWED_ORIGINS || 'http://localhost:3000,http://localhost:3001,https://cllrmcphilemy.vercel.app')
         .split(',')
         .map(s => s.trim())
         .filter(Boolean);

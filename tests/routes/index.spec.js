@@ -8,7 +8,7 @@ describe('Index Endpoint', () => {
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       success: true,
-      message: 'express vercel boiler plate',
+      message: 'this is express vercel boiler plate',
       data: null
     });
   });
