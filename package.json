@@ -9,11 +9,13 @@
     "test": "jest -i"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.1",
     "bson": "^6.5.0",
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
-    "mongodb": "^6.5.0"
+    "mongodb": "^6.5.0",
+    "multer": "^1.4.5-lts.1"
   },
   "keywords": [
     "vercel"

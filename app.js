@@ -36,9 +36,18 @@ app.use((req, res, next) => {
     res.header('Vary', 'Origin');
 
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    ATLAS_URI=mongodb+srv://jmcaveety_db_user:HwnZDoaOHHVgdE80@cluster0.bch338l.mongodb.net/?appName=Cluster0
+    DB_NAME=parklife
+    BLOB_READ_WRITE_TOKEN=vercel_blob_rw_AW4JOsZWLpe9e6MW_VUhtQXCGgEq0AQtwChJ1Yy12AUanvk
+    ALLOWED_ORIGINS=https://cllrmcphilemy.vercel.app
+    NODE_ENV=production    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 });
+
+// serve uploaded files (development helper)
+const path = require('path');
+const uploadsDir = path.join(__dirname, 'uploads');
+app.use('/uploads', express.static(uploadsDir));
 
 app.use('/', routes);
 

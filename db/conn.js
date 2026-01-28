@@ -8,15 +8,25 @@ let cachedDb = null;
 
 async function connect() {
     if (cachedDb) return cachedDb;
-    if (!connectionString) return null;
+    if (!connectionString) {
+        console.warn('No ATLAS_URI provided, using in-memory storage');
+        return null;
+    }
     try {
-        client = new MongoClient(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
+        // Add TLS options for Node.js v17+ compatibility
+        const options = {
+            tls: true,
+            tlsAllowInvalidCertificates: false,
+            serverSelectionTimeoutMS: 5000,
+        };
+        
+        client = new MongoClient(connectionString, options);
         const conn = await client.connect();
         cachedDb = conn.db(dbName);
-        console.log('Connected to MongoDB:', dbName);
+        console.log('✓ Connected to MongoDB:', dbName);
         return cachedDb;
     } catch (e) {
-        console.error('DB connection failed:', e.message || e);
+        console.error('✗ DB connection failed:', e.message || e);
         return null;
     }
 }
