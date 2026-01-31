@@ -34,13 +34,8 @@ app.use((req, res, next) => {
 
     // Indicate responses can vary by Origin for correct caching behavior
     res.header('Vary', 'Origin');
-
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    ATLAS_URI=mongodb+srv://jmcaveety_db_user:HwnZDoaOHHVgdE80@cluster0.bch338l.mongodb.net/?appName=Cluster0
-    DB_NAME=parklife
-    BLOB_READ_WRITE_TOKEN=vercel_blob_rw_AW4JOsZWLpe9e6MW_VUhtQXCGgEq0AQtwChJ1Yy12AUanvk
-    ALLOWED_ORIGINS=https://cllrmcphilemy.vercel.app
-    NODE_ENV=production    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     next();
 });
 
