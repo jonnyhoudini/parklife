@@ -5,10 +5,7 @@ const routes = require('./routes');
 
 const app = express();
 
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-app.use(helmet());
-// CORS Middleware
+// CORS Middleware (must be first)
 app.use((req, res, next) => {
     // ALLOWED_ORIGINS can be a comma-separated list, e.g.:
     // ALLOWED_ORIGINS=http://localhost:3000,https://cllrmcphilemy.vercel.app
@@ -36,8 +33,16 @@ app.use((req, res, next) => {
     res.header('Vary', 'Origin');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    // Allow credentials if needed
+    res.header('Access-Control-Allow-Credentials', 'true');
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
     next();
 });
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(helmet());
 
 // serve uploaded files (development helper)
 const path = require('path');
