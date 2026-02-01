@@ -21,7 +21,18 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 r.post('/upload', upload.single('file'), async (req, res) => {
     try {
-        if (!req.file) return res.status(400).json({ error: 'no file uploaded' });
+        console.log('--- /upload route hit ---');
+        console.log('Request headers:', req.headers);
+        if (req.file) {
+            console.log('File received:', {
+                originalname: req.file.originalname,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            });
+        } else {
+            console.log('No file received. Body:', req.body);
+            return res.status(400).json({ error: 'no file uploaded' });
+        }
 
         // Upload to Vercel Blob
         const blob = await put(req.file.originalname, req.file.buffer, {
@@ -29,6 +40,7 @@ r.post('/upload', upload.single('file'), async (req, res) => {
             token: process.env.BLOB_READ_WRITE_TOKEN
         });
 
+        console.log('Blob upload success:', blob.url);
         return res.status(201).json({ url: blob.url });
     } catch (err) {
         console.error('Upload error:', err);
